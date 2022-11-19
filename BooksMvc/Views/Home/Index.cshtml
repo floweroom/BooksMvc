@@ -1,0 +1,29 @@
+﻿@model BookDto
+@{
+    ViewData["Title"] = "Alyona's Library";
+}
+
+<div class="text-center">
+    <h4 class="display-4">Команда</h4>
+
+    <form asp-action="Execute">
+        
+        <label asp-for="Id"></label>
+        <input asp-for="Id" placeholder="Id"/>
+
+        <label asp-for="Name"></label>
+        <input asp-for="Name" placeholder="Name" />
+
+        <label asp-for="Author"></label>
+        <input asp-for="Author" placeholder="Author" />
+
+        <label asp-for="Pages"></label>
+        <input asp-for="Pages" placeholder="Pages" />
+
+        <label asp-for="Price"></label>
+        <input asp-for="Price" placeholder="Price" />
+
+        <button type="submit" class="btn btn-primary">Поиск</button>
+    </form>
+
+</div>
