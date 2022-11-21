@@ -34,8 +34,8 @@ namespace BooksMvc.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            _bookRepository.GetAll();
-            return View();
+            var Books = _bookRepository.GetAll();
+            return View(Books);
         }
         [HttpDelete]
         public IActionResult Del ([FromRoute]int id)
@@ -43,11 +43,26 @@ namespace BooksMvc.Controllers
             _bookRepository.Delete(id);
             return View("Index", id);
         }
+
         [HttpGet]
         public IActionResult GetId([FromQuery]int id)
         {
-            _bookRepository.GetId(id);
-            return View("Index", id);
+          //  _bookRepository.GetId(id);
+          var Book = _bookRepository.GetId(id);
+            return View(Book);
+        }
+
+        [HttpGet]
+        public IActionResult FindBook()
+        {
+            return View(new FindBookDto());
+        }
+
+        [HttpPost]
+        public IActionResult FindBook(FindBookDto findBookDto)
+        {
+           var Books= _bookRepository.Find(findBookDto);
+            return View("FindResults", Books);
         }
 
         public IActionResult Privacy()

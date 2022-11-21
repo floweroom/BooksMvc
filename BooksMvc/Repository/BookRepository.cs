@@ -19,16 +19,16 @@ namespace BooksMvc.Repository
             List<BookDto> result = new List<BookDto>();
             foreach (Book book in _dbBooks.Books.ToList())
             {
-                result.Add(new BookDto
+                 result.Add(new BookDto
                 {
                     Id = book.Id,
                     Name = book.Name,
                     Author = book.Author,
                     Pages = book.Pages,
-                    Price = book.Price
+                    
                 });
             }
-            return result;
+             return result;
 
 
 
@@ -48,15 +48,14 @@ namespace BooksMvc.Repository
         }
         public void Add(BookDto book)
         {
-           
+            
+
             Book bookdb = new Book()
             {
-                Id = book.Id,
                 Name = book.Name,
                 Author = book.Author,
-                Pages = book.Pages,
-                Price = book.Price
-
+                Pages = book.Pages
+               
             };
 
             _dbBooks.Add(book);
@@ -70,6 +69,18 @@ namespace BooksMvc.Repository
             if(bookdb!=null)  
            _dbBooks.Books.Remove(bookdb);
             _dbBooks.SaveChanges();
+        }
+        public Book[] Find(FindBookDto findBookDto)
+        {
+            IQueryable<Book> query = _dbBooks.Books;
+            if (findBookDto.Name != null)
+                query = query.Where(Book => Book.Name == findBookDto.Name);
+            if (findBookDto.Author != null)
+                query = query.Where(Book => Book.Author == findBookDto.Author);
+            if (findBookDto.Pages != null)
+                query = query.Where(Book => Book.Pages == findBookDto.Pages);
+
+            return query.ToArray();
         }
 
 

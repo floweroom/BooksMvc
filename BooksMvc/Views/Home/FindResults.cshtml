@@ -1,0 +1,16 @@
+﻿@model DbBooks.Book[]
+
+@{
+    ViewData["Title"] = "FindBook";
+}
+
+<h1>FindBook</h1>
+
+<il> 
+    @foreach (var book in Model)
+    {
+        <li>@book.Name</li>
+    } 
+
+ </il>
+

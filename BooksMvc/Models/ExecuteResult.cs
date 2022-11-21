@@ -1,6 +1,6 @@
 ﻿namespace BooksMvc.Models
 {
-    public class Library
+    public class ExecuteResult
     {
     }
 }
