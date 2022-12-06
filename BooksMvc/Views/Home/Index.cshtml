@@ -1,4 +1,4 @@
-﻿@model BookDto
+﻿@model IEnumerable<BookDto>
 @{
     ViewData["Title"] = "Alyona's Library";
 }
@@ -6,7 +6,7 @@
 <div class="text-center">
     <h4 class="display-4">Команда</h4>
 
-    <form asp-action="Execute">
+   @*<form asp-action="Execute">
         
         <label asp-for="Id"></label>
         <input asp-for="Id" placeholder="Id"/>
@@ -23,5 +23,13 @@
         
         <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
-
+*@
 </div>
+<il>
+    @foreach (var book in Model)
+    {
+        <li>@book.Name</li>
+        <li>@book.Id</li>
+    }
+
+</il>

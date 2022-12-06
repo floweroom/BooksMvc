@@ -10,47 +10,114 @@ namespace BooksMvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly BookRepository _bookRepository;
-        public HomeController(ILogger<HomeController> logger, BookRepository bookrepository)
+        private readonly DbBook _dbBook;
+        public HomeController(ILogger<HomeController> logger, BookRepository bookrepository, DbBook dbBook)
         {
             _logger = logger;
             _bookRepository = bookrepository;
+            _dbBook = dbBook;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 
         {
             BookDto bookDto = new BookDto();
-            return View(bookDto);
+            _logger.LogInformation("Стартовая страница");
+            var book = await _bookRepository.GetAll();
+            return View(book);
         }
+
+        public async Task<IActionResult> Add()
+        {
+
+            return View(new AddBook());
+        }
+
+
         [HttpPost]
-        public IActionResult Add([FromBody]BookDto bookDto)
+        public async Task<IActionResult> Add(AddBook addBook)
         {
-           _bookRepository.Add(bookDto);
+            await _bookRepository.Add(addBook);
+            _logger.LogInformation("Добавили книжечку");
 
-            return View("Index", bookDto);
-                        
+            return RedirectToAction("Index");
 
         }
+
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var Books = _bookRepository.GetAll();
+            var Books = await _bookRepository.GetAll();
+            _logger.LogInformation("Показали все результаты");
             return View(Books);
         }
-        [HttpDelete]
-        public IActionResult Del ([FromRoute]int id)
-        {
-            _bookRepository.Delete(id);
-            return View("Index", id);
-        }
+
 
         [HttpGet]
-        public IActionResult GetId([FromQuery]int id)
+        public async Task<IActionResult> DelBook(int id)
+
         {
-          //  _bookRepository.GetId(id);
-          var Book = _bookRepository.GetId(id);
-            return View(Book);
+            if (id != null)
+            {
+                var I =  _bookRepository.GetId(id);
+                return (I);
+            }
+            
+            return NotFound();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Del(int id)
+        {
+            if (id != null)
+            {
+               await _bookRepository.Delete(id);
+                _logger.LogInformation("Удалили книжку");
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateBook(int id)
+        {
+            if (id != null)
+            {
+                Book book = await _dbBook.Books.FirstOrDefault(x => x.Id == id);
+                if (book != null)
+                {
+                    return View(book);
+                }
+            }
+            return NotFound();
+        }
+
+
+
+        [HttpPost]
+        public IActionResult UpdateBook(Update update)
+
+        {
+            if (update != null)
+
+            {
+                _bookRepository.Update(update);
+
+
+            }
+            _logger.LogInformation("Поменяли книжку");
+            return RedirectToAction("Index");
+
+        }
+        //[HttpGet]
+        //public IActionResult GetId([FromQuery]int id)
+        //{
+        //  //  _bookRepository.GetId(id);
+        //  var Book = _bookRepository.GetId(id);
+        //    _logger.LogInformation("Нашли по Id");
+        //    return View(Book);
+        //}
 
         [HttpGet]
         public IActionResult FindBook()
@@ -61,7 +128,7 @@ namespace BooksMvc.Controllers
         [HttpPost]
         public IActionResult FindBook(FindBookDto findBookDto)
         {
-           var Books= _bookRepository.Find(findBookDto);
+            var Books = _bookRepository.Find(findBookDto);
             return View("FindResults", Books);
         }
 
