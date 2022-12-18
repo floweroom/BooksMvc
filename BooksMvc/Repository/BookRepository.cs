@@ -36,12 +36,12 @@ namespace BooksMvc.Repository
 
         public async Task<Book> GetId(int Id)
         {
-            
-             Book IdBook = _dbBooks.Books.FirstOrDefault(x => x.Id == Id);
-            
-              return IdBook;
-            
-           
+
+            Book IdBook = _dbBooks.Books.FirstOrDefault(x => x.Id == Id);
+
+            return IdBook;
+
+
 
             _dbBooks.SaveChanges();
         }
@@ -63,10 +63,11 @@ namespace BooksMvc.Repository
             _dbBooks.SaveChanges();
         }
 
-        public async Task Update(Update up)
+        public async Task Update(int Id, Update up)
         {
             Book book = new Book()
             {
+                Id = Id,
                 Name = up.Name,
                 Author = up.Author,
                 Pages = up.Pages
@@ -78,17 +79,17 @@ namespace BooksMvc.Repository
 
         public async Task Delete(int id)
         {
-           
-                Book book = new Book
-                {
-                    Id = id
-                };
-                _dbBooks.Entry(book).State = EntityState.Deleted;
 
-                _dbBooks.SaveChanges();
+            Book book = new Book
+            {
+                Id = id
+            };
+            _dbBooks.Entry(book).State = EntityState.Deleted;
+
+            _dbBooks.SaveChanges();
 
 
-            
+
         }
         public Book[] Find(FindBookDto findBookDto)
         {
@@ -104,6 +105,6 @@ namespace BooksMvc.Repository
         }
 
     }
-    
+
 }
 

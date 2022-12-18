@@ -60,13 +60,18 @@ namespace BooksMvc.Controllers
 
         {
            
-            var I = await _bookRepository.GetId(id);
+            var book = await _bookRepository.GetId(id);
 
-            if (I == null)
+            if (book == null)
             {
                 return NotFound();
             }
-            return View("DelBook", I);
+            Delete delete = new Delete()
+            {
+                Id = id,
+            };
+
+            return View("DelBook", delete);
 
 
 
@@ -93,8 +98,17 @@ namespace BooksMvc.Controllers
                 Book book = await _dbBook.Books.FirstOrDefaultAsync(x => x.Id == id);
                 if (book != null)
                 {
-                    return View(book);
+                    Update update = new Update()
+                    {
+                        Name = book.Name,
+                        Author = book.Author,
+                        Pages = book.Pages,
+                    };
+                    ViewBag.Id = book.Id;
+                    return View(update);
                 }
+
+
             }
             return NotFound();
         }
@@ -102,14 +116,14 @@ namespace BooksMvc.Controllers
 
 
         [HttpPost]
-        public IActionResult UpdateBook(Update update)
+        public IActionResult UpdateBook(int Id,Update update)
 
         {
             if (update != null)
 
             {
-                _bookRepository.Update(update);
-
+                _bookRepository.Update(Id,update);
+                
 
             }
             _logger.LogInformation("Поменяли книжку");
