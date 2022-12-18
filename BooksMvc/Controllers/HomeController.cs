@@ -2,7 +2,9 @@
 using BooksMvc.Repository;
 using DbBooks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+
 
 namespace BooksMvc.Controllers
 {
@@ -30,7 +32,7 @@ namespace BooksMvc.Controllers
         public async Task<IActionResult> Add()
         {
 
-            return View(new AddBook());
+            return View(new AddBook()) ;
         }
 
 
@@ -57,13 +59,17 @@ namespace BooksMvc.Controllers
         public async Task<IActionResult> DelBook(int id)
 
         {
-            if (id != null)
+           
+            var I = await _bookRepository.GetId(id);
+
+            if (I == null)
             {
-                var I =  _bookRepository.GetId(id);
-                return (I);
+                return NotFound();
             }
-            
-            return NotFound();
+            return View("DelBook", I);
+
+
+
         }
 
         [HttpPost]
@@ -71,7 +77,7 @@ namespace BooksMvc.Controllers
         {
             if (id != null)
             {
-               await _bookRepository.Delete(id);
+                await _bookRepository.Delete(id);
                 _logger.LogInformation("Удалили книжку");
                 return RedirectToAction("Index");
             }
@@ -84,7 +90,7 @@ namespace BooksMvc.Controllers
         {
             if (id != null)
             {
-                Book book = await _dbBook.Books.FirstOrDefault(x => x.Id == id);
+                Book book = await _dbBook.Books.FirstOrDefaultAsync(x => x.Id == id);
                 if (book != null)
                 {
                     return View(book);

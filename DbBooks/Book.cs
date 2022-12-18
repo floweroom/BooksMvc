@@ -14,6 +14,6 @@ namespace DbBooks
 
         public int Pages { get; set; }
 
-        public int Price { get; set; }
+
     }
 }

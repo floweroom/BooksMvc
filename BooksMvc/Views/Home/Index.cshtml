@@ -6,30 +6,47 @@
 <div class="text-center">
     <h4 class="display-4">Команда</h4>
 
-   @*<form asp-action="Execute">
-        
-        <label asp-for="Id"></label>
-        <input asp-for="Id" placeholder="Id"/>
+    @*<form asp-action="Execute">
 
-        <label asp-for="Name"></label>
-        <input asp-for="Name" placeholder="Name" />
+    <label asp-for="Id"></label>
+    <input asp-for="Id" placeholder="Id"/>
 
-        <label asp-for="Author"></label>
-        <input asp-for="Author" placeholder="Author" />
+    <label asp-for="Name"></label>
+    <input asp-for="Name" placeholder="Name" />
 
-        <label asp-for="Pages"></label>
-        <input asp-for="Pages" placeholder="Pages" />
+    <label asp-for="Author"></label>
+    <input asp-for="Author" placeholder="Author" />
 
-        
-        <button type="submit" class="btn btn-primary">Поиск</button>
+    <label asp-for="Pages"></label>
+    <input asp-for="Pages" placeholder="Pages" />
+
+
+    <button type="submit" class="btn btn-primary">Поиск</button>
     </form>
-*@
+    *@
 </div>
-<il>
-    @foreach (var book in Model)
-    {
-        <li>@book.Name</li>
-        <li>@book.Id</li>
-    }
+<table class="table">
+    <thead>
+        <tr class="header">
 
-</il>
+            <td><p>Название книги</p></td>
+            <td><p>Автор</p></td>
+            <td><p>Id</p></td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+        <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.Id</td>
+        </tr>
+        }
+    </tbody>
+
+
+
+
+</table>

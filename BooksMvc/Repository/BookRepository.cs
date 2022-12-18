@@ -31,21 +31,18 @@ namespace BooksMvc.Repository
             }
             return result;
 
-
-
-
         }
 
 
-        public async Task GetId(int Id)
+        public async Task<Book> GetId(int Id)
         {
-            if (Id != null)
-            {
-                Book IdBook = _dbBooks.Books.FirstOrDefault(x => x.Id == Id);
+            
+             Book IdBook = _dbBooks.Books.FirstOrDefault(x => x.Id == Id);
+            
+              return IdBook;
+            
+           
 
-
-
-            }
             _dbBooks.SaveChanges();
         }
 
@@ -81,8 +78,7 @@ namespace BooksMvc.Repository
 
         public async Task Delete(int id)
         {
-            if (id != null)
-            {
+           
                 Book book = new Book
                 {
                     Id = id
@@ -92,7 +88,7 @@ namespace BooksMvc.Repository
                 _dbBooks.SaveChanges();
 
 
-            }
+            
         }
         public Book[] Find(FindBookDto findBookDto)
         {

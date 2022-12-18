@@ -4,7 +4,7 @@ namespace BooksMvc.Models
 {
     public class Delete
     {
-        public int ?Id { get; set; }
+        public int Id { get; set; }
 
     }
 }
