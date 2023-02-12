@@ -19,6 +19,14 @@ namespace BooksMvc.Controllers
             _bookRepository = bookrepository;
             _dbBook = dbBook;
         }
+        public async Task<IActionResult> Index()
+        {
+            BookDto bookDto = new BookDto();
+            _logger.LogInformation("Стартовая страница");
+            var book = await _bookRepository.GetAll();
+            return View(book);
+        }
+
         [Authorize]
         public async Task<IActionResult> Add()
         {

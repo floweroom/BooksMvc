@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BookDto>
+@{
+    ViewData["Title"] = "Alyona's Library";
+}
+
+<div class="text-center">
+    <h4 class="display-4">Действие</h4>
+
+    @*<form asp-action="Execute">
+
+    <label asp-for="Id"></label>
+    <input asp-for="Id" placeholder="Id"/>
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" placeholder="Name" />
+
+    <label asp-for="Author"></label>
+    <input asp-for="Author" placeholder="Author" />
+
+    <label asp-for="Pages"></label>
+    <input asp-for="Pages" placeholder="Pages" />
+
+
+    <button type="submit" class="btn btn-primary">Поиск</button>
+    </form>
+    *@
+
+</div>
+<table class="table">
+    <thead>
+        <tr class="header">
+
+            <td><p>Название книги</p></td>
+            <td><p>Автор</p></td>
+            <td><p>Id</p></td>
+
+            <td></td>
+            <td></td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td>@book.Id</td>
+
+                <td>
+                    <a asp-action="UpdateBook" asp-route-id="@book.Id">edit </a>
+                    
+                </td>
+
+                <td>
+                    <a class="text-danger" asp-action="DelBook" asp-route-id="@book.Id">delete </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+
+
+</table>

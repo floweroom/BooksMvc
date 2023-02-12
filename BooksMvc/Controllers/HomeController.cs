@@ -22,12 +22,8 @@ namespace BooksMvc.Controllers
         }
 
         public async Task<IActionResult> Index()
-
         {
-            BookDto bookDto = new BookDto();
-            _logger.LogInformation("Стартовая страница");
-            var book = await _bookRepository.GetAll();
-            return View(book);
+            return View();
         }
 
        

@@ -14,7 +14,7 @@ var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbBook>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+    opts.UseSqlServer(connectionString);
 });
 
 builder.Services.AddScoped<BookRepository>();

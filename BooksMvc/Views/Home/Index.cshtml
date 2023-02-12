@@ -1,10 +1,10 @@
-﻿@model IEnumerable<BookDto>
+﻿
 @{
     ViewData["Title"] = "Alyona's Library";
 }
 
 <div class="text-center">
-    <h4 class="display-4">Команда</h4>
+    <h4 class="display-4">Действие</h4>
 
     @*<form asp-action="Execute">
 
@@ -26,40 +26,5 @@
     *@
 
 </div>
-<table class="table">
-    <thead>
-        <tr class="header">
-
-            <td><p>Название книги</p></td>
-            <td><p>Автор</p></td>
-            <td><p>Id</p></td>
-
-            <td></td>
-            <td></td>
-        </tr>
-
-    </thead>
-    <tbody>
-        @foreach (var book in Model)
-        {
-            <tr>
-                <td>@book.Name</td>
-                <td>@book.Author</td>
-                <td>@book.Id</td>
-
-                <td>
-                    <a asp-action="UpdateBook" asp-route-id="@book.Id">edit </a>
-                    
-                </td>
-
-                <td>
-                    <a class="text-danger" asp-action="DelBook" asp-route-id="@book.Id">delete </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-
-
-
-
-</table>
+<h3>Библиотека</h3>
+<a asp-controller="Book" asp-action= "Index">Перейти в каталог</a>
