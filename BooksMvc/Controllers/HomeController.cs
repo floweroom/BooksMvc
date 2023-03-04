@@ -26,6 +26,11 @@ namespace BooksMvc.Controllers
             return View();
         }
 
+        public IActionResult GetTime()
+        {
+            return Ok(DateTime.Now);
+        }
+
        
     }
 }

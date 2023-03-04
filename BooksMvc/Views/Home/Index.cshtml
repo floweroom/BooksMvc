@@ -31,6 +31,20 @@
 @inject BooksMvc.Interface.ITimeService Timer
 <p id="timer"></p>
 
+<h4>Время на сервере</h4>
+<a class="btn btn-default"
+    data-ajax="true"
+    data-ajax-url="/Home/GetTime"
+    data-ajax-loading="#loading-info"
+    data-ajax-update="#time-panel"
+    > 
+  Получить
+</a>
+<span id="loading-info" style="display: none">Загрузка...</span>
+<div id="time-panel"> 
+    
+</div>
+
 <script>
     // Set the date we're counting down to
     var countDownDate = new Date("@ViewBag.Timer.ToString("f", CultureInfo.InvariantCulture)").getTime();
