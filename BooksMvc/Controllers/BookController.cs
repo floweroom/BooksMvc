@@ -1,5 +1,5 @@
 ﻿using BooksMvc.Models;
-using BooksMvc.Repository;
+using BooksMvc.Repository.IInterfaces;
 using DbBooks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +11,9 @@ namespace BooksMvc.Controllers
     public class BookController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly BookRepository _bookRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly DbBook _dbBook;
-        public BookController(ILogger<HomeController> logger, BookRepository bookrepository, DbBook dbBook)
+        public BookController(ILogger<HomeController> logger, IBookRepository bookrepository, DbBook dbBook)
         {
             _logger = logger;
             _bookRepository = bookrepository;

@@ -1,5 +1,7 @@
+using BooksMvc.Interface;
 using BooksMvc.Models;
 using BooksMvc.Repository;
+using BooksMvc.Repository.IInterfaces;
 using DbBooks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<ITimeService, SimpleService>();
 builder.Services.AddDbContext<DbBook>(opts =>
 {
     opts.UseSqlServer(connectionString);
 });
 
 builder.Services.AddScoped<BookRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<DbBook>()

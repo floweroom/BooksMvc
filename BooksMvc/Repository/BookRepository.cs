@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using DbBooks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http.HttpResults;
+using BooksMvc.Repository.IInterfaces;
 
 namespace BooksMvc.Repository
 {
-    public class BookRepository
+    public class BookRepository: IBookRepository
     {
         protected DbBook _dbBooks;
         public BookRepository(DbBook dbBooks)
