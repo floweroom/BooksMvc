@@ -27,51 +27,83 @@
 
 </div>
 <h3>Библиотека</h3>
-<a asp-controller="Book" asp-action= "Index">Перейти в каталог</a>
+<a asp-controller="Book" asp-action="Index">Перейти в каталог</a>
 @inject BooksMvc.Interface.ITimeService Timer
 <p id="timer"></p>
 
 <h4>Время на сервере</h4>
 <a class="btn btn-default"
-    data-ajax="true"
-    data-ajax-url="/Home/GetTime"
-    data-ajax-loading="#loading-info"
-    data-ajax-update="#time-panel"
-    > 
-  Получить
+   data-ajax="true"
+   data-ajax-url="/Home/GetTime"
+   data-ajax-loading="#loading-info"
+   data-ajax-update="#time-panel">
+    Получить
 </a>
 <span id="loading-info" style="display: none">Загрузка...</span>
-<div id="time-panel"> 
-    
+<div id="time-panel">
 </div>
+<hr />
 
-<script>
-    // Set the date we're counting down to
-    var countDownDate = new Date("@ViewBag.Timer.ToString("f", CultureInfo.InvariantCulture)").getTime();
+<h4>Время на сервере</h4>
+<a id="test-btn" href="#"> 
+    Получить время
+</a>
+<div id="time-panel2"></div>
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
 
-      // Get today's date and time
-      var now = new Date().getTime();
 
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now;
+@section Scripts{
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("@ViewBag.Timer.ToString("f", CultureInfo.InvariantCulture)").getTime();
 
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Update the count down every 1 second
+        var x = setInterval(function () {
 
-      // Display the result in the element with id="demo"
-      document.getElementById("timer").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+            // Get today's date and time
+            var now = new Date().getTime();
 
-      // If the count down is finished, write some text
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerHTML = "EXPIRED";
-      }
-    }, 1000);
-</script>
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+
+       
+    </script>
+    <script>
+        $(function () {
+            $("#test-btn").click(function (e) {
+                e.preventDefault();
+
+                console.log("btn pressed");
+
+                $.get("/Home/GetTime")
+                    .done(function (response) {
+                        console.log("Recieve response " + response);
+
+                        var panel = $("#time-panel2");
+                        panel.emty();
+                        panel.append(response);
+                    })
+                    .fail(function () {
+                        console.log("Get time fail");
+                    });
+            });
+        });
+    </script>
+}
