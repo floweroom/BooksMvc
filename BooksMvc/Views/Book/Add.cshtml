@@ -28,9 +28,21 @@
                 <span asp-validation-for="Pages" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" />
             </div>
+
+            <div class="col-12">
+            <label for="username" class="form-label">Имя пользователя</label>
+            <div class="input-group">
+              <span class="input-group-text">@@</span>
+              <input type="text" class="form-control" id="username" placeholder="Имя пользователя" required="">
+            <div class="invalid-feedback">
+               Имя пользователя обязательно для заполнения.
+              </div>
+            </div>
+          </div>
         </form>
+
     </div>
 </div>
 

@@ -29,6 +29,7 @@
 <h3>Библиотека</h3>
 <a asp-controller="Book" asp-action="Index">Перейти в каталог</a>
 @inject BooksMvc.Interface.ITimeService Timer
+
 <p id="timer"></p>
 
 <h4>Время на сервере</h4>
@@ -45,7 +46,8 @@
 <hr />
 
 <h4>Время на сервере</h4>
-<a id="test-btn" href="#"> 
+<a id="test-btn" 
+href="#"> 
     Получить время
 </a>
 <div id="time-panel2"></div>
@@ -105,5 +107,18 @@
                     });
             });
         });
+    </script>
+    <script>
+        $(function(){
+            var recieve = sum(5,6);
+            console.log(receive);
+        })
+
+        function sum(x,y){
+          return x+y;
+        }
+     
+         
+        
     </script>
 }
