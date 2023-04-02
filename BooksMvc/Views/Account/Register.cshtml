@@ -21,6 +21,16 @@
                         <input asp-for="PasswordConfirm" placeholder="Подтверждение пароля" />
                         <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
 
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <div class="input-group">
+                            <span class="input-group-text">@@</span>
+                            <input type="text" class="form-control" id="username" placeholder="Имя пользователя" required="">
+                            <div class="invalid-feedback">
+                                Имя пользователя обязательно для заполнения.
+                            </div>
+                        </div>
+                
+
                         <button type="submit" class="btn btn-default">Зарегистрироваться</button>
                     </form>
 
